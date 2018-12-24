@@ -1,0 +1,3 @@
+[submodule "sclib"]
+	path = sclib
+	url = https://github.com/glani/steamcontroller.git
