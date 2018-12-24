@@ -269,13 +269,16 @@ public:
 		v.TouchLFinger = (uint8_t)((event.update.buttons & STEAMCONTROLLER_BUTTON_LFINGER) > 0 ? SteamControllerValues::YES : SteamControllerValues::NO);
 		v.TouchRFinger = (uint8_t)((event.update.buttons & STEAMCONTROLLER_BUTTON_RFINGER) > 0 ? SteamControllerValues::YES : SteamControllerValues::NO);
 
+		v.LeftPadX = 0;
+		v.LeftPadY = 0;
+		v.StickX = 0;
+		v.StickY = 0;
+
 		if (v.TouchLFinger) {
 			v.LeftPadX = clampf(event.update.leftXY.x / 32767.f, -1, 1);
 			v.LeftPadY = clampf(event.update.leftXY.y / 32767.f, -1, 1);
 		}
 		else {
-			v.LeftPadX = 0;
-			v.LeftPadY = 0;
 
 			if ((event.update.buttons & STEAMCONTROLLER_FLAG_PAD_STICK) != 0
 				|| (event.update.leftXY.x != 0 || event.update.leftXY.y != 0)) {
@@ -284,8 +287,6 @@ public:
 				v.Stick = SteamControllerValues::YES;
 			}
 			else {
-				v.StickX = 0;
-				v.StickY = 0;
 				v.Stick = SteamControllerValues::NO;
 			}
 		}
