@@ -1,4 +1,4 @@
-# steamcontrollercocos - NOT Steam SDK implementation of Steam Controller 
+# steamcontrollercocos - NOT Steam SDK implementation of Steam Controller for Cocos2d Game engine
 Core files that are a base implementation of cocos2d api. It is supposed to be used as a part of any cocos2d project.
 The implementation is similar to Controller.cpp that is the part of cocos2d engine.
 
