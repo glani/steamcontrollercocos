@@ -32,6 +32,8 @@ public:
 
     static SteamController* getControllerByTag(int tag);
 
+	static const std::vector<SteamController*>& getAllController();
+
     const std::string& getDeviceId() const;
 
     int getTag() const;
