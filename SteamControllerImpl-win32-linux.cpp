@@ -38,7 +38,7 @@ struct SteamControllerEventHolder {
         SteamControllerDevice *pDevice;
         SteamController *pController;
         SteamControllerEvent event;
-        uint8_t evtType;
+        int evtType;
     };
 
     class SteamControllerImpl {
@@ -84,16 +84,16 @@ struct SteamControllerEventHolder {
             SteamController_Exit();
         }
 
-        bool processEvents(uint8_t total_read, SteamControllerEvent **events, SteamControllerDevice *pDevice,
+        bool processEvents(int total_read, SteamControllerEvent **events, SteamControllerDevice *pDevice,
                            SteamController *steamController) {
             bool isDisconnected = false;
 
             auto eu = SteamControllerSingleEventHolder();
             eu.evtType = 0;
 
-            for (uint8_t i = 0; i < total_read; ++i) {
+            for (int i = 0; i < total_read; ++i) {
                 SteamControllerEvent *event = events[i];
-                uint8_t res = event->eventType;
+                int res = event->eventType;
                 if (res == STEAMCONTROLLER_EVENT_CONNECTION &&
                     event->connection.details == STEAMCONTROLLER_CONNECTION_EVENT_DISCONNECTED) {
                     CCLOG("Device %p is not connected (anymore), trying next one...\n", pDevice);
@@ -211,7 +211,7 @@ struct SteamControllerEventHolder {
                     SteamControllerEvent **pEvents = events;
                     memset(eventsRawData, 0, TotalEvents * sizeof(SteamControllerEvent));
 
-                    uint8_t totalRead = SteamController_ReadEvents(pDevice, pEvents, TotalEvents);
+                    int totalRead = SteamController_ReadEvents(pDevice, pEvents, TotalEvents);
                     auto isDisconnected = processEvents(totalRead, events, pDevice, pair.second.second);
                     if (isDisconnected) {
                         disconnected.emplace(SteamController_GetId(pDevice));
